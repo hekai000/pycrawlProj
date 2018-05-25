@@ -33,9 +33,10 @@ class SelfwoaiduCrawlPipeline(object):
     def process_item(self, item, spider):
         if isinstance(item,SelfwoaiduCrawlSimpleItem):
             self._process_booklist_item(item)
-        else:
+        elif isinstance(item,SelfwoaiduCrawlDetailItem):
             self._process_bookeDetail_item(item)
-        return item
+        else:
+            return item
 
 
 

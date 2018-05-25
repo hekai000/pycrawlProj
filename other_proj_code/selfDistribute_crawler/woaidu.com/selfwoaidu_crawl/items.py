@@ -24,6 +24,7 @@ class SelfwoaiduCrawlDetailItem(scrapy.Item):
     novelImage = scrapy.Field()
     novelSummary = scrapy.Field()
     novelDownloadInfo = scrapy.Field()
+    novelImagePath = scrapy.Field()
 
 
 

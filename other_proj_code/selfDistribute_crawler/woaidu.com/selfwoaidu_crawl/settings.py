@@ -8,12 +8,12 @@
 #     https://doc.scrapy.org/en/latest/topics/settings.html
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-
+import os
 BOT_NAME = 'selfwoaidu_crawl'
 
 SPIDER_MODULES = ['selfwoaidu_crawl.spiders']
 NEWSPIDER_MODULE = 'selfwoaidu_crawl.spiders'
-
+PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'selfwoaidu_crawl (+http://www.yourdomain.com)'
@@ -65,9 +65,10 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'selfwoaidu_crawl.pipelines.SelfwoaiduCrawlPipeline': 300,
-}
+ITEM_PIPELINES = { 'selfwoaidu_crawl.pipelines.book_file.selfWoaiduBookFile': 209,
+                  'selfwoaidu_crawl.pipelines.cover_image.selfWoaiduCoverImage': 300,
+                  'selfwoaidu_crawl.pipelines.mongodb.SelfwoaiduCrawlPipeline': 301
+                  }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -129,7 +130,7 @@ USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11",
     "Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.10) Gecko/20100922 Ubuntu/10.10 (maverick) Firefox/3.6.10"
 ]
-
+"""
 #爬虫去重优化
 #使用scrapy_redis的调度器
 SCHEDULER = "selfwoaidu_crawl.scrapy_redis.scheduler.Scheduler"
@@ -149,3 +150,17 @@ FILTER_URL = None
 FILTER_HOST = 'localhost'
 FILTER_PORT = 6379
 FILTER_DB = 0
+"""
+
+IMAGES_STORE = os.path.join(PROJECT_DIR,'media/book_covor_image')
+IMAGES_EXPIRES = 30
+IMAGES_THUMBS = {
+     'small': (50, 50),
+     'big': (270, 270),
+}
+
+IMAGES_MIN_HEIGHT = 0
+IMAGES_MIN_WIDTH = 0
+
+
+FILES_STORE = os.path.join(PROJECT_DIR, 'media/book_file')

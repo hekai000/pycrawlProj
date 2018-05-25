@@ -45,7 +45,8 @@ class SelfwoaiduOrgSpider(CrawlSpider):
         # 小说作者： 随风萧萧兮
         novelLink = response.meta['novelLink']
         novelAuthor = response.xpath(".//div[@class='xiaoxiao']/text()").extract_first()
-        novelImage =  response.xpath(".//div[@class='hong']/img/@src").extract_first()
+        novelImageTmp =  response.xpath(".//div[@class='hong']/img/@src").extract_first()
+        novelImage = novelImageTmp if not novelImageTmp.split("/")[1].startswith("no_") else ""
         novelSummary = response.xpath(".//div[@class='lili']/text()").extract_first()
         novelDownloadInfo = response.xpath(".//div[@class='zizi pcdownload']/a/@href").extract()
 
